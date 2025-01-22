@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         title: 'Aurora Luxe',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 146, 84, 26)),
+              seedColor: const Color.fromARGB(255, 33, 163, 85)),
           useMaterial3: true,
         ),
         // home: const HomePage(title: 'Arura Luxe'),
