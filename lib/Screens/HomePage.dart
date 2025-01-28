@@ -42,7 +42,10 @@ class NewArrivals extends StatelessWidget {
                 width: 100,
               )
             ],
-          )
+          ),
+          Text("Experience The luxury"),
+          Text(
+              "Luxury is more than a statement—it’s a way of life. Indulge in the finest craftsmanship, where every detail tells a story of sophistication and elegance. From rare finds to timeless treasures, embrace the extraordinary and elevate your lifestyle with unmatched exclusivity")
         ],
       ),
     );

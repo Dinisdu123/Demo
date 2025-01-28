@@ -1,6 +1,7 @@
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/HomePage.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
+import 'package:assingment/Screens/Footer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         body: Column(
-          children: [MainImg(), NewArrivals(),],
+          children: [MainImg(), NewArrivals(), Footer()],
         ));
   }
 }
