@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:assingment/main.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -6,11 +7,20 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.home),
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MyHomePage(title: "Aurora Luxe")));
+              },
+              icon: Icon(Icons.home)),
           Icon(Icons.search),
           Icon(Icons.favorite),
           Icon(Icons.person)

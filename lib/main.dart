@@ -1,7 +1,9 @@
 import 'package:assingment/Screens/AboutUs.dart';
+import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/HomePage.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/Footer.dart';
+import 'package:assingment/Screens/Accesories.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -79,12 +81,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 title: Text("Fragrances"),
                 hoverColor: Colors.grey,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Fragrances()));
+                },
               ),
               ListTile(
                 title: Text("Accessories"),
                 hoverColor: Colors.grey,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Accesories()));
+                },
               ),
               ListTile(
                 title: Text("About Us"),
@@ -93,6 +101,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Aboutus()));
                 },
+              ),
+              const Divider(),
+              ListTile(
+                leading: Icon(Icons.login),
+                title: Text("Login"),
+                hoverColor: Colors.grey,
+                onTap: () {},
               )
             ],
           ),

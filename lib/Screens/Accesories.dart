@@ -1,16 +1,20 @@
-import 'package:assingment/main.dart';
 import 'package:flutter/material.dart';
+import 'package:assingment/main.dart';
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/Fragrances.dart';
+import 'package:assingment/Screens/HomePage.dart';
+import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/Footer.dart';
+import 'package:assingment/Screens/Accesories.dart';
 
-class LeatherGoods extends StatelessWidget {
+class Accesories extends StatelessWidget {
+  const Accesories({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Leather Goods"),
+        title: Text("Aurora Luxe"),
         centerTitle: true,
         actions: [
           IconButton(
@@ -23,7 +27,8 @@ class LeatherGoods extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
-              title: const Text("Home"),
+              // leading: Icon(Icons.home),
+              title: Text("Home"),
               hoverColor: Colors.grey,
               onTap: () {
                 Navigator.pushReplacement(
@@ -35,14 +40,15 @@ class LeatherGoods extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text("Leather goods"),
+              title: Text("Leather goods"),
               hoverColor: Colors.grey,
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LeatherGoods()));
               },
             ),
             ListTile(
-              title: const Text("Fragrances"),
+              title: Text("Fragrances"),
               hoverColor: Colors.grey,
               onTap: () {
                 Navigator.pushReplacement(context,
@@ -50,19 +56,18 @@ class LeatherGoods extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text("Accessories"),
-              hoverColor: Colors.grey,
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text("About Us"),
+              title: Text("Accessories"),
               hoverColor: Colors.grey,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Aboutus())); // Assuming you have AboutUs implemented
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("About Us"),
+              hoverColor: Colors.grey,
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Aboutus()));
               },
             ),
             const Divider(),
@@ -75,7 +80,6 @@ class LeatherGoods extends StatelessWidget {
           ],
         ),
       ),
-      body: Footer(),
     );
   }
 }

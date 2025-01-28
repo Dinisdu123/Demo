@@ -1,10 +1,9 @@
 import 'package:assingment/main.dart';
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/AboutUs.dart';
-import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/Footer.dart';
 
-class LeatherGoods extends StatelessWidget {
+class Fragrances extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +43,7 @@ class LeatherGoods extends StatelessWidget {
             ListTile(
               title: const Text("Fragrances"),
               hoverColor: Colors.grey,
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Fragrances()));
-              },
+              onTap: () {},
             ),
             ListTile(
               title: const Text("Accessories"),
@@ -62,7 +58,7 @@ class LeatherGoods extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            Aboutus())); // Assuming you have AboutUs implemented
+                            Aboutus())); 
               },
             ),
             const Divider(),
@@ -75,7 +71,6 @@ class LeatherGoods extends StatelessWidget {
           ],
         ),
       ),
-      body: Footer(),
     );
   }
 }
