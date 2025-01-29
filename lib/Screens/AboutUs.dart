@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:assingment/Screens/Footer.dart';
+import 'package:assingment/Screens/bottomNav.dart';
 
 class Aboutus extends StatelessWidget {
   const Aboutus({super.key});
@@ -87,8 +87,8 @@ class Aboutus extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(left: 0, right: 0, bottom: 0, child: Footer())
       ]),
+      bottomNavigationBar: Footer(),
     );
   }
 }
