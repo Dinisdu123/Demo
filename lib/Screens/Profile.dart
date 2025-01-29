@@ -1,5 +1,6 @@
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/Login.dart';
+import 'package:assingment/Screens/Wishlist.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,10 @@ class _AccountCateg extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WishList()));
+                },
                 icon: const Icon(Icons.arrow_forward_outlined),
                 color: Colors.black,
                 iconSize: 24,
