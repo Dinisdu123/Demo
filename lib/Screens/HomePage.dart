@@ -9,12 +9,11 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.white,
         title: const Text(
           "Aurora Luxe",
           style: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.bold),
         ),
-
         centerTitle: true,
         actions: [
           IconButton(
@@ -24,8 +23,11 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [MainImg(), NewArrivals()],
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [MainImg(), NewArrivals()],
+          ),
         ),
       ),
       bottomNavigationBar: Footer(),
