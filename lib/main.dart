@@ -4,6 +4,7 @@ import 'package:assingment/Screens/HomePage.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 import 'package:assingment/Screens/accesories.dart';
+import 'package:assingment/Themes/Themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,10 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme:
-          ThemeData(useMaterial3: true, scaffoldBackgroundColor: Colors.white),
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: ThemeMode.system,
       home: MyHomePage(),
     );
   }
 }
-
