@@ -44,14 +44,14 @@ class Search extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
                 ),
               ],
@@ -79,7 +79,7 @@ class Search extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                 ),
@@ -91,7 +91,7 @@ class Search extends StatelessWidget {
                             builder: (context) => LeatherGoods()));
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
                 ),
               ],
@@ -119,7 +119,7 @@ class Search extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                 ),
@@ -129,7 +129,7 @@ class Search extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Fragrances()));
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
                 ),
               ],
@@ -157,7 +157,7 @@ class Search extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                 ),
@@ -167,7 +167,7 @@ class Search extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Accesories()));
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
                 ),
               ],
