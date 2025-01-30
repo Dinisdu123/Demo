@@ -21,14 +21,15 @@ class MyProfile extends StatelessWidget {
             child: ElevatedButton(
               child: Text(
                 "SIGN IN OR REGISTER",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color),
               ),
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
+                // backgroundColor: Colors.black,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               ),
             ),
@@ -68,7 +69,7 @@ class _AccountCateg extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_outlined),
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
                 iconSize: 24,
               ),
             ],
@@ -97,7 +98,7 @@ class _AccountCateg extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => WishList()));
                 },
                 icon: const Icon(Icons.arrow_forward_outlined),
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
                 iconSize: 24,
               ),
             ],
@@ -123,7 +124,7 @@ class _AccountCateg extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_forward_outlined),
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
                 iconSize: 24,
               ),
             ],
@@ -152,7 +153,7 @@ class _AccountCateg extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Aboutus()));
                 },
                 icon: const Icon(Icons.arrow_forward_outlined),
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
                 iconSize: 24,
               ),
             ],
