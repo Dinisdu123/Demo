@@ -25,32 +25,41 @@ class Fragrances extends StatelessWidget {
             shrinkWrap: true,
             childAspectRatio: 0.12,
             children: [
-              Column(
-                children: [
-                  Image.network(
-                      "https://i0.wp.com/scentson.lk/wp-content/uploads/2022/10/Versace-Eros-Eau-De-Toilette-100ml_9002f5d3-119a-4790-b581-158e1b0a2cf0_2000x-2-1-1.jpg?fit=900%2C900&ssl=1"),
-                  Text("Versase perfume"),
-                  Text("LKR 45000.00"),
-                  TextButton(onPressed: () {}, child: Text("See more ->"))
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Image.network(
+                        "https://i0.wp.com/scentson.lk/wp-content/uploads/2022/10/Versace-Eros-Eau-De-Toilette-100ml_9002f5d3-119a-4790-b581-158e1b0a2cf0_2000x-2-1-1.jpg?fit=900%2C900&ssl=1"),
+                    Text("Versase perfume"),
+                    Text("LKR 45000.00"),
+                    TextButton(onPressed: () {}, child: Text("See more ->"))
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Image.network(
-                      "https://thesensation.lk/wp-content/uploads/2022/12/GUCCI-GUILTY-LOVE-EDITION-W-EDP-50ML-e1670224374558.jpg"),
-                  Text("Gucci Guilty "),
-                  Text("LKR 38000.00"),
-                  TextButton(onPressed: () {}, child: Text("See more ->")),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Image.network(
+                        "https://thesensation.lk/wp-content/uploads/2022/12/GUCCI-GUILTY-LOVE-EDITION-W-EDP-50ML-e1670224374558.jpg"),
+                    Text("Gucci Guilty "),
+                    Text("LKR 38000.00"),
+                    TextButton(onPressed: () {}, child: Text("See more ->")),
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Image.network(
-                      "https://assets.woolworthsstatic.co.za/Flora-Gorgeous-Orchid-Eau-de-Parfum-for-Women-30ml-509051338-detail.jpg?V=Viin&o=eyJidWNrZXQiOiJ3dy1vbmxpbmUtaW1hZ2UtcmVzaXplIiwia2V5IjoiaW1hZ2VzL2VsYXN0aWNlcmEvcHJvZHVjdHMvYWx0ZXJuYXRlLzIwMjQtMDktMzAvNTA5MDUxMzM4XzMwTUxfZGV0YWlsLmpwZyJ9&q=75"),
-                  Text("Gucci Flora  Orchid"),
-                  Text("LKR 60000.00"),
-                  TextButton(onPressed: () {}, child: Text("See more ->")),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Image.network(
+                        "https://assets.woolworthsstatic.co.za/Flora-Gorgeous-Orchid-Eau-de-Parfum-for-Women-30ml-509051338-detail.jpg?V=Viin&o=eyJidWNrZXQiOiJ3dy1vbmxpbmUtaW1hZ2UtcmVzaXplIiwia2V5IjoiaW1hZ2VzL2VsYXN0aWNlcmEvcHJvZHVjdHMvYWx0ZXJuYXRlLzIwMjQtMDktMzAvNTA5MDUxMzM4XzMwTUxfZGV0YWlsLmpwZyJ9&q=75"),
+                    Text("Gucci Flora  Orchid"),
+                    Text("LKR 60000.00"),
+                    TextButton(onPressed: () {}, child: Text("See more ->")),
+                  ],
+                ),
               )
             ],
           ),
