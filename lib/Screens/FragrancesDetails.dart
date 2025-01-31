@@ -20,7 +20,8 @@ class FragranceDetailScreen extends StatelessWidget {
         title: Text(title),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+          child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +50,7 @@ class FragranceDetailScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:assingment/Screens/LeatherGoods.dart';
+
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/Fragrances.dart';

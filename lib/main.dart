@@ -1,9 +1,5 @@
-import 'package:assingment/Screens/AboutUs.dart';
-import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/HomePage.dart';
-import 'package:assingment/Screens/LeatherGoods.dart';
-import 'package:assingment/Screens/bottomNav.dart';
-import 'package:assingment/Screens/accesories.dart';
+
 import 'package:assingment/Themes/Themes.dart';
 import 'package:flutter/material.dart';
 

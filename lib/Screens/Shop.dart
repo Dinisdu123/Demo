@@ -1,8 +1,7 @@
 import 'package:assingment/Screens/Fragrances.dart';
-import 'package:assingment/Screens/LeatherGoods.dart';
+
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/bottomNav.dart';
-import 'package:assingment/Screens/accesories.dart';
 
 class Search extends StatelessWidget {
   const Search({super.key});
@@ -84,12 +83,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LeatherGoods()));
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
@@ -162,10 +156,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Accesories()));
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
                   iconSize: 24,

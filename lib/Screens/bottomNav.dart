@@ -1,5 +1,6 @@
 import 'package:assingment/Screens/Profile.dart';
 import 'package:assingment/Screens/Shop.dart';
+import 'package:assingment/Screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/HomePage.dart';
 
@@ -20,7 +21,7 @@ class Footer extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => Search()));
         } else if (index == 2) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Search()));
+              context, MaterialPageRoute(builder: (context) => Cart()));
         } else if (index == 3) {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyProfile()));

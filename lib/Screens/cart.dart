@@ -10,7 +10,8 @@ class Cart extends StatelessWidget {
       appBar: AppBar(
         title: Text("Aurora Luxe - Cart "),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+          child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +144,7 @@ class Cart extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
       bottomNavigationBar: Footer(),
     );
   }

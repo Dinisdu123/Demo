@@ -1,10 +1,7 @@
-import 'package:assingment/Screens/Accesories.dart';
 import 'package:assingment/Screens/FragrancesDetails.dart';
-import 'package:assingment/Screens/HomePage.dart';
-import 'package:assingment/Screens/LeatherGoods.dart';
+
 import 'package:assingment/Screens/bottomNav.dart';
 import 'package:flutter/material.dart';
-import 'package:assingment/Screens/AboutUs.dart';
 
 class Fragrances extends StatelessWidget {
   @override
