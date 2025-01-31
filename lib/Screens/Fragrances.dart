@@ -1,4 +1,5 @@
 import 'package:assingment/Screens/Accesories.dart';
+import 'package:assingment/Screens/FragrancesDetails.dart';
 import 'package:assingment/Screens/HomePage.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/bottomNav.dart';
@@ -33,7 +34,21 @@ class Fragrances extends StatelessWidget {
                         "https://i0.wp.com/scentson.lk/wp-content/uploads/2022/10/Versace-Eros-Eau-De-Toilette-100ml_9002f5d3-119a-4790-b581-158e1b0a2cf0_2000x-2-1-1.jpg?fit=900%2C900&ssl=1"),
                     Text("Versase perfume"),
                     Text("LKR 45000.00"),
-                    TextButton(onPressed: () {}, child: Text("See more ->"))
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FragranceDetailScreen(
+                                        imageUrl:
+                                            "https://i0.wp.com/scentson.lk/wp-content/uploads/2022/10/Versace-Eros-Eau-De-Toilette-100ml_9002f5d3-119a-4790-b581-158e1b0a2cf0_2000x-2-1-1.jpg?fit=900%2C900&ssl=1",
+                                        title: "Versase perfume",
+                                        price: "LKR 45000.00",
+                                        description:
+                                            "A premium fragrance that blends luxury and elegance.",
+                                      )));
+                        },
+                        child: Text("See more ->"))
                   ],
                 ),
               ),
