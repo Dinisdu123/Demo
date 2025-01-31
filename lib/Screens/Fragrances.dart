@@ -24,6 +24,7 @@ class Fragrances extends StatelessWidget {
           child: GridView.count(
             crossAxisCount: 3,
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             childAspectRatio: 0.12,
             children: [
               Padding(
