@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Silver Necklace",
+    "image_url": "https://via.placeholder.com/150",
+    "price": "LKR 12000.00",
+    "description": "Stylish silver jewellery.",
+    "sub_category": "jewellery"
+  },
+  {
+    "id": "2",
+    "name": "Leather Boots",
+    "image_url": "https://via.placeholder.com/150",
+    "price": "LKR 18000.00",
+    "description": "Durable leather footwear.",
+    "sub_category": "footwear"
+  }
+]

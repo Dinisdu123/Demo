@@ -1,5 +1,6 @@
 import 'package:assingment/Screens/Fragrances.dart';
-
+import 'package:assingment/Screens/LeatherGoods.dart';
+import 'package:assingment/Screens/Accessories.dart';
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 
@@ -22,7 +23,7 @@ class Search extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          // Shop All
+          // Shop All (Unchanged)
           Container(
             padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
@@ -83,7 +84,13 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LeatherGoods()),
+                    );
+                  },
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
@@ -119,8 +126,11 @@ class Search extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Fragrances()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Fragrances()),
+                    );
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
@@ -156,7 +166,13 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Accessories()),
+                    );
+                  },
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
@@ -166,7 +182,7 @@ class Search extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(),
     );
   }
 }

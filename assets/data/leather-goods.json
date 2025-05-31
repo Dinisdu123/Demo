@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Leather Shoulder Bag",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXbx2xuQ8oCL1AfTJHboRK-297hYlqU_dzHg&s",
+    "price": "LKR 25000.00",
+    "description": "Elegant leather shoulder bag.",
+    "sub_category": "shoulder bags"
+  },
+  {
+    "id": "2",
+    "name": "Mini Leather Bag",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6rKa7gyZdXGSrcoA5q3aqRtWjH-GkPsfDOA&s",
+    "price": "LKR 15000.00",
+    "description": "Compact mini leather bag.",
+    "sub_category": "minibags"
+  }
+]
