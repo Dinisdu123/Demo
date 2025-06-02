@@ -61,28 +61,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
           email: data['user']['email'] ?? email,
           role: data['user']['role'],
           profilePhotoUrl: data['user']['profile_photo_url'],
-          token: data['token'], // Null for login
+          token: data['token'],
         );
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_name', user.name);
         await prefs.setString('user_email', user.email);
         await prefs.setString('user_id', user.id);
-        if (user.role != null) {
-          await prefs.setString('user_role', user.role!);
-        } else {
-          await prefs.remove('user_role');
-        }
-        if (user.profilePhotoUrl != null) {
-          await prefs.setString(
-              'user_profile_photo_url', user.profilePhotoUrl!);
-        } else {
-          await prefs.remove('user_profile_photo_url');
-        }
-        if (user.token != null) {
-          await prefs.setString('auth_token', user.token!);
-        } else {
-          await prefs.remove('auth_token');
-        }
+        await prefs.setString('user_role', user.role ?? '');
+        await prefs.setString(
+            'user_profile_photo_url', user.profilePhotoUrl ?? '');
+        await prefs.setString('auth_token', user.token ?? '');
         state = AuthState(isAuthenticated: true, user: user);
       } else {
         final errorData = jsonDecode(response.body);
@@ -120,22 +108,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
         await prefs.setString('user_name', user.name);
         await prefs.setString('user_email', user.email);
         await prefs.setString('user_id', user.id);
-        if (user.role != null) {
-          await prefs.setString('user_role', user.role!);
-        } else {
-          await prefs.remove('user_role');
-        }
-        if (user.profilePhotoUrl != null) {
-          await prefs.setString(
-              'user_profile_photo_url', user.profilePhotoUrl!);
-        } else {
-          await prefs.remove('user_profile_photo_url');
-        }
-        if (user.token != null) {
-          await prefs.setString('auth_token', user.token!);
-        } else {
-          await prefs.remove('auth_token');
-        }
+        await prefs.setString('user_role', user.role ?? '');
+        await prefs.setString(
+            'user_profile_photo_url', user.profilePhotoUrl ?? '');
+        await prefs.setString('auth_token', user.token ?? '');
         state = AuthState(isAuthenticated: true, user: user);
       } else {
         final errorData = jsonDecode(response.body);
@@ -149,6 +125,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> logout() async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+      if (token != null) {
+        final response = await http.post(
+          Uri.parse('http://10.0.2.2:8000/api/logout'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
+        print('Logout response: ${response.statusCode} - ${response.body}');
+        if (response.statusCode != 200) {
+          final errorData = jsonDecode(response.body);
+          state = AuthState(error: errorData['error'] ?? 'Logout failed');
+          return;
+        }
+      }
       await prefs.clear();
       state = AuthState();
     } catch (e) {

@@ -37,15 +37,28 @@ class MyProfile extends ConsumerWidget {
                         ),
                       ),
                       SizedBox(height: 10.h),
+                      if (authState.error != null)
+                        Text(
+                          authState.error!,
+                          style: GoogleFonts.poppins(
+                            color: Colors.red,
+                            fontSize: 14.sp,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      SizedBox(height: 10.h),
                       ElevatedButton(
                         onPressed: () async {
-                          // await ref.read(authProvider.notifier).logout();
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage()),
-                            (route) => false,
-                          );
+                          await ref.read(authProvider.notifier).logout();
+                          final newAuthState = ref.read(authProvider);
+                          if (!newAuthState.isAuthenticated) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()),
+                              (route) => false,
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200.w, 40.h),
@@ -67,9 +80,9 @@ class MyProfile extends ConsumerWidget {
                 : ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()));
+                        context,
+                        MaterialPageRoute(builder: (context) => const Login()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(200.w, 40.h),
@@ -147,9 +160,9 @@ class _AccountCateg extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WishList()));
+                    context,
+                    MaterialPageRoute(builder: (context) => const WishList()),
+                  );
                 },
                 icon: const Icon(Icons.arrow_forward_outlined),
                 color: Theme.of(context).iconTheme.color,
@@ -201,8 +214,10 @@ class _AccountCateg extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Aboutus()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Aboutus()),
+                  );
                 },
                 icon: const Icon(Icons.arrow_forward_outlined),
                 color: Theme.of(context).iconTheme.color,
