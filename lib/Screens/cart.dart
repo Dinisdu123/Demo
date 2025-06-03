@@ -145,7 +145,7 @@ class Cart extends StatelessWidget {
           ],
         ),
       )),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 2),
     );
   }
 }

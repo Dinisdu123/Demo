@@ -68,7 +68,7 @@ class Accessories extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 1),
     );
   }
 

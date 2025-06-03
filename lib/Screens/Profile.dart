@@ -103,7 +103,7 @@ class MyProfile extends ConsumerWidget {
           const Expanded(child: _AccountCateg()),
         ],
       ),
-      bottomNavigationBar: const Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 3),
     );
   }
 }

@@ -88,7 +88,7 @@ class Aboutus extends StatelessWidget {
           ),
         ),
       ]),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 3),
     );
   }
 }

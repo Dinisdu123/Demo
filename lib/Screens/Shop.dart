@@ -1,6 +1,7 @@
 import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/Accessories.dart';
+import 'package:assingment/Screens/all_products.dart'; // Added import for AllProducts
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 
@@ -23,7 +24,7 @@ class Search extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          // Shop All (Unchanged)
+          // Shop All
           Container(
             padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
@@ -49,7 +50,13 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllProducts()),
+                    );
+                  },
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
                   iconSize: 24,
@@ -182,7 +189,7 @@ class Search extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 1),
     );
   }
 }

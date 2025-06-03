@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/Fragrances.dart';
@@ -29,7 +28,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(currentIndex: 0),
     );
   }
 }
