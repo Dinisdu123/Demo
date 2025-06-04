@@ -5,12 +5,30 @@ import '../providers/product_provider.dart';
 import '../models/product.dart';
 import 'productDetails.dart';
 import 'bottomNav.dart';
+import '../utils/shake_refresh_mixin.dart';
 
-class AllProducts extends ConsumerWidget {
+class AllProducts extends ConsumerStatefulWidget {
   const AllProducts({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _AllProductsState createState() => _AllProductsState();
+}
+
+class _AllProductsState extends ConsumerState<AllProducts>
+    with ShakeRefreshMixin {
+  @override
+  void initState() {
+    super.initState();
+    startShakeDetection(ref, () {
+      // Refresh all product providers
+      ref.refresh(productProvider('fragrance'));
+      ref.refresh(productProvider('leather-goods'));
+      ref.refresh(productProvider('accessories'));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final categories = ['fragrance', 'leather-goods', 'accessories'];
     final productFutures = categories
         .map((category) => ref.watch(productProvider(category)))
@@ -130,7 +148,7 @@ class AllProducts extends ConsumerWidget {
           );
         },
       ),
-      bottomNavigationBar: const Footer(currentIndex: 1),
+      bottomNavigationBar: Footer(currentIndex: 1),
     );
   }
 
@@ -162,6 +180,7 @@ class AllProducts extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
+                    productId: product.id,
                     imageUrl: product.imageUrl,
                     title: product.name,
                     price: product.price,

@@ -149,6 +149,7 @@ class Fragrances extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
+                    productId: product.id,
                     imageUrl: product.imageUrl,
                     title: product.name,
                     price: product.price,

@@ -77,7 +77,8 @@ class ProductNotifier extends StateNotifier<AsyncValue<List<Product>>> {
         throw Exception('Unsupported category');
     }
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:8000/api/$endpoint'))
+        .get(Uri.parse(
+            'https://darkorange-goldfinch-978675.hostingersite.com//api/$endpoint'))
         .timeout(const Duration(seconds: 10));
     print('API Response for $category: ${response.body}');
     if (response.statusCode == 200) {

@@ -5,12 +5,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/product_provider.dart';
 import '../models/product.dart';
+import '../utils/shake_refresh_mixin.dart';
 
-class LeatherGoods extends ConsumerWidget {
+class LeatherGoods extends ConsumerStatefulWidget {
   const LeatherGoods({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LeatherGoods> createState() => _LeatherGoodsState();
+}
+
+class _LeatherGoodsState extends ConsumerState<LeatherGoods>
+    with ShakeRefreshMixin {
+  @override
+  void initState() {
+    super.initState();
+    startShakeDetection(ref, () {
+      ref.refresh(productProvider('leather-goods'));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final productsAsync = ref.watch(productProvider('leather-goods'));
 
     return Scaffold(
@@ -36,14 +51,18 @@ class LeatherGoods extends ConsumerWidget {
             return const Center(child: Text('No leather goods available'));
           }
 
-          final shoulderBags =
-              products.where((p) => p.subCategory == 'shoulder bags').toList();
-          final miniBags =
-              products.where((p) => p.subCategory == 'minibags').toList();
-          final backpacks =
-              products.where((p) => p.subCategory == 'backpacks').toList();
-          final wallets =
-              products.where((p) => p.subCategory == 'wallets').toList();
+          final shoulderBags = products
+              .where((p) => p.subCategory.toLowerCase() == 'shoulder bags')
+              .toList();
+          final miniBags = products
+              .where((p) => p.subCategory.toLowerCase() == 'minibags')
+              .toList();
+          final backpacks = products
+              .where((p) => p.subCategory.toLowerCase() == 'backpacks')
+              .toList();
+          final wallets = products
+              .where((p) => p.subCategory.toLowerCase() == 'wallets')
+              .toList();
 
           return SingleChildScrollView(
             child: Column(
@@ -91,14 +110,13 @@ class LeatherGoods extends ConsumerWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .headlineSmall
+                .titleLarge
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         ListView.builder(
           shrinkWrap: true,
-          physics:
-              const NeverScrollableScrollPhysics(), // Disable inner scroll to let parent SingleChildScrollView handle scrolling
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: products.length,
           itemBuilder: (context, index) {
             final product = products[index];
@@ -131,6 +149,7 @@ class LeatherGoods extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
+                    productId: product.id,
                     imageUrl: product.imageUrl,
                     title: product.name,
                     price: product.price,

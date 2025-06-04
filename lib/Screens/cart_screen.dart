@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../providers/cart_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../Providers/cart_provider.dart';
 
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});
@@ -13,15 +14,28 @@ class CartScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: Text(
+          'Cart',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: cartState.isLoading
           ? const Center(child: CircularProgressIndicator())
           : cartState.error != null
-              ? Center(child: Text('Error: ${cartState.error}'))
+              ? Center(
+                  child: Text(
+                    'Error: ${cartState.error}',
+                    style: GoogleFonts.roboto(),
+                  ),
+                )
               : cartState.items.isEmpty
-                  ? const Center(child: Text('Your cart is empty'))
+                  ? Center(
+                      child: Text(
+                        'Your cart is empty',
+                        style: GoogleFonts.roboto(),
+                      ),
+                    )
                   : RefreshIndicator(
                       onRefresh: () =>
                           ref.read(cartProvider.notifier).fetchCartItems(),
@@ -30,12 +44,11 @@ class CartScreen extends ConsumerWidget {
                         itemCount: cartState.items.length,
                         itemBuilder: (context, index) {
                           final item = cartState.items[index];
-                          final product = item['product'];
                           return Card(
                             child: ListTile(
-                              leading: product['image_url'] != null
+                              leading: item.product.imageUrl != null
                                   ? CachedNetworkImage(
-                                      imageUrl: product['image_url'],
+                                      imageUrl: item.product.imageUrl!,
                                       width: 50.w,
                                       height: 50.h,
                                       fit: BoxFit.cover,
@@ -45,35 +58,45 @@ class CartScreen extends ConsumerWidget {
                                           const Icon(Icons.error),
                                     )
                                   : const Icon(Icons.image_not_supported),
-                              title: Text(product['name'] ?? 'Unknown Product'),
+                              title: Text(
+                                item.product.name,
+                                style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.w500),
+                              ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Price: \$${product['price']}'),
+                                  Text(
+                                    'Price: \$${item.product.price}',
+                                    style: GoogleFonts.roboto(),
+                                  ),
                                   Row(
                                     children: [
                                       IconButton(
                                         icon: const Icon(Icons.remove),
                                         onPressed: () {
-                                          if (item['quantity'] > 1) {
+                                          if (item.quantity > 1) {
                                             ref
                                                 .read(cartProvider.notifier)
                                                 .updateCartItem(
-                                                  item['id'].toString(),
-                                                  item['quantity'] - 1,
+                                                  item.id,
+                                                  item.quantity - 1,
                                                 );
                                           }
                                         },
                                       ),
-                                      Text('Qty: ${item['quantity']}'),
+                                      Text(
+                                        'Qty: ${item.quantity}',
+                                        style: GoogleFonts.roboto(),
+                                      ),
                                       IconButton(
                                         icon: const Icon(Icons.add),
                                         onPressed: () {
                                           ref
                                               .read(cartProvider.notifier)
                                               .updateCartItem(
-                                                item['id'].toString(),
-                                                item['quantity'] + 1,
+                                                item.id,
+                                                item.quantity + 1,
                                               );
                                         },
                                       ),
@@ -85,9 +108,7 @@ class CartScreen extends ConsumerWidget {
                                 icon: const Icon(Icons.delete),
                                 onPressed: () => ref
                                     .read(cartProvider.notifier)
-                                    .deleteCartItem(
-                                      item['id'].toString(),
-                                    ),
+                                    .deleteCartItem(item.id),
                               ),
                             ),
                           );

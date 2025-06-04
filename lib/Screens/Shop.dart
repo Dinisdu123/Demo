@@ -51,11 +51,11 @@ class Search extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllProducts()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const AllProducts()),
+                    // );
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
                   color: Theme.of(context).iconTheme.color,
