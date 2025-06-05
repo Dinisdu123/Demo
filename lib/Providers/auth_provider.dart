@@ -45,7 +45,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> login(String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/login'),
+        Uri.parse(
+            'https://darkorange-goldfinch-978675.hostingersite.com/api/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'email': email,
@@ -84,7 +85,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> register(String name, String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/register'),
+        Uri.parse(
+            'https://darkorange-goldfinch-978675.hostingersite.com/api/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'name': name,
@@ -128,7 +130,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final token = prefs.getString('auth_token');
       if (token != null) {
         final response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/api/logout'),
+          Uri.parse(
+              'https://darkorange-goldfinch-978675.hostingersite.com/api/logout'),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',

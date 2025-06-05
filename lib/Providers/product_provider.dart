@@ -65,20 +65,20 @@ class ProductNotifier extends StateNotifier<AsyncValue<List<Product>>> {
     String endpoint;
     switch (category.toLowerCase()) {
       case 'fragrance':
-        endpoint = 'products/fragrances';
+        endpoint = 'fragrances';
         break;
       case 'leather-goods':
-        endpoint = 'products/leather-goods';
+        endpoint = 'leather-goods';
         break;
       case 'accessories':
-        endpoint = 'products/accessories';
+        endpoint = 'accessories';
         break;
       default:
         throw Exception('Unsupported category');
     }
     final response = await http
         .get(Uri.parse(
-            'https://darkorange-goldfinch-978675.hostingersite.com//api/$endpoint'))
+            'https://darkorange-goldfinch-978675.hostingersite.com/api/products/$endpoint'))
         .timeout(const Duration(seconds: 10));
     print('API Response for $category: ${response.body}');
     if (response.statusCode == 200) {
