@@ -1,149 +1,151 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../Models/cart_model.dart';
+import '../Services/database_helper.dart';
+import '../Models/cart_item.dart';
+import 'auth_provider.dart';
 
-class CartState {
-  final List<CartItem> items;
-  final bool isLoading;
-  final String? error;
+class CartNotifier extends StateNotifier<AsyncValue<List<CartItem>>> {
+  final DatabaseHelper _dbHelper;
+  final String? userId;
 
-  CartState({
-    this.items = const [],
-    this.isLoading = false,
-    this.error,
-  });
+  CartNotifier(this._dbHelper, this.userId)
+      : super(const AsyncValue.loading()) {
+    print('Initializing CartNotifier with userId: $userId');
+    _fetchCart();
+  }
 
-  CartState copyWith({
-    List<CartItem>? items,
-    bool? isLoading,
-    String? error,
-  }) {
-    return CartState(
-      items: items ?? this.items,
-      isLoading: isLoading ?? this.isLoading,
-      error: error,
-    );
+  Future<void> _fetchCart() async {
+    if (userId == null) {
+      state = const AsyncValue.error('User not logged in', StackTrace.empty);
+      return;
+    }
+    try {
+      state = const AsyncValue.loading();
+      final items = await _dbHelper.getCartItems(userId!);
+      print(
+          'Fetched ${items.length} cart items for userId: $userId: ${items.map((i) => 'id=${i.productId}, title=${i.title}').toList()}');
+      await _dbHelper.debugCartContents(userId!);
+      state = AsyncValue.data(items);
+    } catch (e) {
+      print('Error fetching cart: $e');
+      state = AsyncValue.error(e, StackTrace.current);
+    }
+  }
+
+  Future<bool> addToCart({
+    required String productId,
+    required String title,
+    required String imagePath,
+    required String price,
+    required String description,
+    int quantity = 1,
+  }) async {
+    if (userId == null) {
+      print('Add to cart failed: User not logged in');
+      state = const AsyncValue.error('User not logged in', StackTrace.empty);
+      return false;
+    }
+    if (productId.isEmpty) {
+      print('Add to cart failed: Empty productId for title=$title');
+      return false;
+    }
+    try {
+      print(
+          'Attempting to add to cart: userId=$userId, productId=$productId, title=$title');
+      final item = CartItem(
+        id: 0,
+        userId: userId!,
+        productId: productId,
+        title: title,
+        imagePath: imagePath,
+        price: price,
+        description: description,
+        quantity: quantity,
+      );
+      await _dbHelper.insertCartItem(item);
+      final existingItems = await _dbHelper.getCartItems(userId!);
+      final existingItem = existingItems.firstWhere(
+        (i) => i.productId == productId,
+        orElse: () => item,
+      );
+      await _dbHelper.updateCartItemQuantity(
+        userId!,
+        productId,
+        existingItem.quantity + 1,
+      );
+      print(
+          'Incremented quantity for item: productId=$productId, new quantity=${existingItem.quantity + 1}');
+      await _fetchCart();
+      return true;
+    } catch (e) {
+      print(
+          'Error adding to cart: productId=$productId, title=$title, error=$e');
+      state = AsyncValue.error(e, StackTrace.current);
+      return false;
+    }
+  }
+
+  Future<void> removeFromCart(String productId) async {
+    if (userId == null) {
+      state = const AsyncValue.error('User not logged in', StackTrace.empty);
+      return;
+    }
+    try {
+      print('Removing from cart: userId=$userId, productId=$productId');
+      await _dbHelper.deleteCartItem(userId!, productId);
+      await _fetchCart();
+    } catch (e) {
+      print('Error removing from cart: $e');
+      state = AsyncValue.error(e, StackTrace.current);
+    }
+  }
+
+  Future<bool> isInCart(String productId) async {
+    if (userId == null) return false;
+    final result = await _dbHelper.isInCart(userId!, productId);
+    print('Checked isInCart: productId=$productId, result=$result');
+    return result;
+  }
+
+  Future<void> updateQuantity(String productId, int quantity) async {
+    if (userId == null) {
+      state = const AsyncValue.error('User not logged in', StackTrace.empty);
+      return;
+    }
+    try {
+      print(
+          'Updating quantity: userId=$userId, productId=$productId, quantity=$quantity');
+      if (quantity <= 0) {
+        await _dbHelper.deleteCartItem(userId!, productId);
+      } else {
+        await _dbHelper.updateCartItemQuantity(userId!, productId, quantity);
+      }
+      await _fetchCart();
+    } catch (e) {
+      print('Error updating cart quantity: $e');
+      state = AsyncValue.error(e, StackTrace.current);
+    }
+  }
+
+  Future<void> clearCart() async {
+    if (userId == null) {
+      state = const AsyncValue.error('User not logged in', StackTrace.empty);
+      return;
+    }
+    try {
+      print('Clearing cart for userId=$userId');
+      await _dbHelper.clearCart(userId!);
+      await _fetchCart();
+    } catch (e) {
+      print('Error clearing cart: $e');
+      state = AsyncValue.error(e, StackTrace.current);
+    }
   }
 }
 
-class CartNotifier extends StateNotifier<CartState> {
-  final String baseUrl = 'http://127.0.0.1:8000/api/cart';
-
-  CartNotifier() : super(CartState()) {
-    fetchCartItems();
-  }
-
-  Future<String?> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('auth_token');
-  }
-
-  Future<void> fetchCartItems() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final token = await _getToken();
-      if (token == null) throw Exception('No authentication token found');
-
-      final response = await http.get(
-        Uri.parse(baseUrl),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body)['data'] as List;
-        final items = data.map((json) => CartItem.fromJson(json)).toList();
-        state = state.copyWith(items: items, isLoading: false);
-      } else {
-        throw Exception('Failed to load cart: ${response.body}');
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> addToCart(String productId, int quantity) async {
-    // Changed to String
-    try {
-      final token = await _getToken();
-      if (token == null) throw Exception('No authentication token found');
-
-      final response = await http.post(
-        Uri.parse(baseUrl),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'product_id': productId,
-          'quantity': quantity,
-        }),
-      );
-
-      if (response.statusCode == 201) {
-        await fetchCartItems(); // Refresh cart
-      } else {
-        throw Exception('Failed to add to cart: ${response.body}');
-      }
-    } catch (e) {
-      state = state.copyWith(error: e.toString());
-    }
-  }
-
-  Future<void> updateCartItem(int id, int quantity) async {
-    try {
-      final token = await _getToken();
-      if (token == null) throw Exception('No authentication token found');
-
-      final response = await http.put(
-        Uri.parse('$baseUrl/$id'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'quantity': quantity,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        await fetchCartItems(); // Refresh cart
-      } else {
-        throw Exception('Failed to update cart: ${response.body}');
-      }
-    } catch (e) {
-      state = state.copyWith(error: e.toString());
-    }
-  }
-
-  Future<void> deleteCartItem(int id) async {
-    try {
-      final token = await _getToken();
-      if (token == null) throw Exception('No authentication token found');
-
-      final response = await http.delete(
-        Uri.parse('$baseUrl/$id'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        await fetchCartItems(); // Refresh cart
-      } else {
-        throw Exception('Failed to remove item: ${response.body}');
-      }
-    } catch (e) {
-      state = state.copyWith(error: e.toString());
-    }
-  }
-}
-
-final cartProvider = StateNotifierProvider<CartNotifier, CartState>((ref) {
-  return CartNotifier();
+final cartProvider =
+    StateNotifierProvider<CartNotifier, AsyncValue<List<CartItem>>>((ref) {
+  final dbHelper = DatabaseHelper.instance;
+  final userId = ref.watch(authProvider).user?.id;
+  print('Initializing cartProvider with userId: $userId');
+  return CartNotifier(dbHelper, userId);
 });

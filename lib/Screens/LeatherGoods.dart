@@ -133,14 +133,7 @@ class _LeatherGoodsState extends ConsumerState<LeatherGoods>
       child: Card(
         elevation: 2,
         child: ListTile(
-          leading: CachedNetworkImage(
-            imageUrl: product.imageUrl,
-            width: 60,
-            height: 60,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
+          leading: _buildProductImage(product.imagePath),
           title: Text(product.name),
           subtitle: Text(product.price),
           trailing: TextButton(
@@ -150,7 +143,7 @@ class _LeatherGoodsState extends ConsumerState<LeatherGoods>
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
                     productId: product.id,
-                    imageUrl: product.imageUrl,
+                    imagePath: product.imagePath,
                     title: product.name,
                     price: product.price,
                     description: product.description,
@@ -163,5 +156,26 @@ class _LeatherGoodsState extends ConsumerState<LeatherGoods>
         ),
       ),
     );
+  }
+
+  Widget _buildProductImage(String imagePath) {
+    if (imagePath.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imagePath,
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+    } else {
+      return Image(
+        image: AssetImage(imagePath),
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+      );
+    }
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:assingment/Screens/AboutUs.dart';
 import 'package:assingment/Screens/Login.dart';
-import 'package:assingment/Screens/Wishlist.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 import 'package:assingment/Screens/HomePage.dart';
 import '../providers/auth_provider.dart';
@@ -134,36 +133,6 @@ class _AccountCateg extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.arrow_forward_outlined),
-                color: Theme.of(context).iconTheme.color,
-                iconSize: 24.sp,
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 20.h),
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey)),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.favorite_border),
-              SizedBox(width: 15.w),
-              Expanded(
-                child: Text(
-                  "Wishlist",
-                  style: GoogleFonts.poppins(
-                      fontSize: 18.sp, fontWeight: FontWeight.bold),
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WishList()),
-                  );
-                },
                 icon: const Icon(Icons.arrow_forward_outlined),
                 color: Theme.of(context).iconTheme.color,
                 iconSize: 24.sp,

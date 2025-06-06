@@ -133,7 +133,7 @@ class Fragrances extends ConsumerWidget {
       child: Column(
         children: [
           CachedNetworkImage(
-            imageUrl: product.imageUrl,
+            imageUrl: product.imagePath,
             height: 100,
             width: 100,
             fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class Fragrances extends ConsumerWidget {
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
                     productId: product.id,
-                    imageUrl: product.imageUrl,
+                    imagePath: product.imagePath,
                     title: product.name,
                     price: product.price,
                     description: product.description,

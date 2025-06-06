@@ -1,10 +1,9 @@
-// lib/screens/admin_dashboard.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:assingment/Screens/Login.dart';
-
+import 'package:assingment/Screens/add_product.dart';
 import '../providers/auth_provider.dart';
 
 class AdminDashboard extends ConsumerWidget {
@@ -22,7 +21,6 @@ class AdminDashboard extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              // await ref.read(authProvider.notifier).logout();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Login()),
@@ -55,13 +53,7 @@ class AdminDashboard extends ConsumerWidget {
                 title: Text("Manage Orders",
                     style: GoogleFonts.poppins(fontSize: 18.sp)),
                 trailing: const Icon(Icons.arrow_forward),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const OrdersScreen()),
-                  // );
-                },
+                onTap: () {},
               ),
             ),
             SizedBox(height: 10.h),
@@ -71,11 +63,16 @@ class AdminDashboard extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12.r)),
               child: ListTile(
                 leading: const Icon(Icons.inventory),
-                title: Text("Manage Products",
+                title: Text("Add Product",
                     style: GoogleFonts.poppins(fontSize: 18.sp)),
                 trailing: const Icon(Icons.arrow_forward),
                 onTap: () {
-                  // TODO: Navigate to products management screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddProductScreen(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -89,9 +86,7 @@ class AdminDashboard extends ConsumerWidget {
                 title: Text("Manage Users",
                     style: GoogleFonts.poppins(fontSize: 18.sp)),
                 trailing: const Icon(Icons.arrow_forward),
-                onTap: () {
-                  // TODO: Navigate to users management screen
-                },
+                onTap: () {},
               ),
             ),
           ],

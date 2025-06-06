@@ -1,47 +1,44 @@
-import 'package:assingment/Screens/Profile.dart';
-import 'package:assingment/Screens/Shop.dart';
-import 'package:assingment/Screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/HomePage.dart';
+import 'package:assingment/Screens/Profile.dart';
+import 'package:assingment/Screens/shop.dart';
+import 'package:assingment/Screens/cart_screen.dart';
 
-class Footer extends StatefulWidget {
-  final int currentIndex; // Add a parameter to receive the current index
+class Footer extends StatelessWidget {
+  final int currentIndex;
 
   const Footer({super.key, required this.currentIndex});
 
   @override
-  _FooterState createState() => _FooterState();
-}
-
-class _FooterState extends State<Footer> {
-  @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      selectedIndex: widget.currentIndex, // Set the current index
+      selectedIndex: currentIndex,
       onDestinationSelected: (index) {
-        // Prevent unnecessary navigation if already on the same page
-        if (index != widget.currentIndex) {
-          if (index == 0) {
+        switch (index) {
+          case 0:
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => MyHomePage()),
             );
-          } else if (index == 1) {
+            break;
+          case 1:
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Search()),
+              MaterialPageRoute(builder: (context) => const Search()),
             );
-          } else if (index == 2) {
+            break;
+          case 2:
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Cart()),
+              MaterialPageRoute(builder: (context) => const CartScreen()),
             );
-          } else if (index == 3) {
+            break;
+          case 3:
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MyProfile()),
+              MaterialPageRoute(builder: (context) => const MyProfile()),
             );
-          }
+            break;
         }
       },
       destinations: const [

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,7 +6,6 @@ import '../providers/product_provider.dart';
 import '../models/product.dart';
 import 'productDetails.dart';
 import 'bottomNav.dart';
-import '../utils/shake_refresh_mixin.dart';
 
 class AllProducts extends ConsumerStatefulWidget {
   const AllProducts({super.key});
@@ -14,19 +14,7 @@ class AllProducts extends ConsumerStatefulWidget {
   _AllProductsState createState() => _AllProductsState();
 }
 
-class _AllProductsState extends ConsumerState<AllProducts>
-    with ShakeRefreshMixin {
-  @override
-  void initState() {
-    super.initState();
-    startShakeDetection(ref, () {
-      // Refresh all product providers
-      ref.refresh(productProvider('fragrance'));
-      ref.refresh(productProvider('leather-goods'));
-      ref.refresh(productProvider('accessories'));
-    });
-  }
-
+class _AllProductsState extends ConsumerState<AllProducts> {
   @override
   Widget build(BuildContext context) {
     final categories = ['fragrance', 'leather-goods', 'accessories'];
@@ -71,7 +59,6 @@ class _AllProductsState extends ConsumerState<AllProducts>
                 );
               }
 
-              // Group products by subCategory
               final subCategories =
                   products.map((p) => p.subCategory).toSet().toList()..sort();
               return Column(
@@ -148,7 +135,7 @@ class _AllProductsState extends ConsumerState<AllProducts>
           );
         },
       ),
-      bottomNavigationBar: Footer(currentIndex: 1),
+      bottomNavigationBar: const Footer(currentIndex: 1),
     );
   }
 
@@ -157,14 +144,7 @@ class _AllProductsState extends ConsumerState<AllProducts>
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl: product.imageUrl,
-            height: 100,
-            width: 100,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
+          _buildProductImage(product.imagePath),
           const SizedBox(height: 8),
           Text(
             product.name,
@@ -181,7 +161,7 @@ class _AllProductsState extends ConsumerState<AllProducts>
                 MaterialPageRoute(
                   builder: (context) => ProductDetailsScreen(
                     productId: product.id,
-                    imageUrl: product.imageUrl,
+                    imagePath: product.imagePath,
                     title: product.name,
                     price: product.price,
                     description: product.description,
@@ -194,5 +174,34 @@ class _AllProductsState extends ConsumerState<AllProducts>
         ],
       ),
     );
+  }
+
+  Widget _buildProductImage(String imagePath) {
+    if (imagePath.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imagePath,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+    } else if (imagePath.startsWith('assets/')) {
+      return Image(
+        image: AssetImage(imagePath),
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+      );
+    } else {
+      return Image(
+        image: FileImage(File(imagePath)),
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+      );
+    }
   }
 }
