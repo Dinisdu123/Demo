@@ -46,6 +46,8 @@ dependencies:
   permission_handler: ^12.0.0+1
   path_provider: ^2.1.5
   sqflite: ^2.4.1
+  geolocator: ^11.0.0
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,13 @@ flutter:
     - assets/images/mensperfume.jpg
     - assets/images/necklace.jpeg
     - assets/images/shoe.jpg
+    - assets/images/shop-accessories.jpg
+    - assets/images/shop-fragrance.jpg
+    - assets/images/shop-leathergoods.jpg
+    - assets/images/shop-all.jpg
+    - assets/images/home-1.jpg
+    - assets/images/home-2.jpeg
+    - assets/images/home-3.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

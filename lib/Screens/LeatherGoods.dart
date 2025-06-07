@@ -5,27 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/product_provider.dart';
 import '../models/product.dart';
-import '../utils/shake_refresh_mixin.dart';
 
-class LeatherGoods extends ConsumerStatefulWidget {
+class LeatherGoods extends ConsumerWidget {
   const LeatherGoods({super.key});
 
   @override
-  ConsumerState<LeatherGoods> createState() => _LeatherGoodsState();
-}
-
-class _LeatherGoodsState extends ConsumerState<LeatherGoods>
-    with ShakeRefreshMixin {
-  @override
-  void initState() {
-    super.initState();
-    startShakeDetection(ref, () {
-      ref.refresh(productProvider('leather-goods'));
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final productsAsync = ref.watch(productProvider('leather-goods'));
 
     return Scaffold(

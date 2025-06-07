@@ -1,6 +1,6 @@
 import 'package:assingment/Screens/ProductDetails.dart';
 import 'package:assingment/Screens/bottomNav.dart';
-
+import 'package:assingment/Screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,10 +28,10 @@ class Accessories extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const CartScreen()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
             },
           ),
         ],
@@ -138,7 +138,7 @@ class Accessories extends ConsumerWidget {
                     title: product.name,
                     price: product.price,
                     description: product.description,
-                    productId: product.id, // Convert productId to int
+                    productId: product.id,
                   ),
                 ),
               );

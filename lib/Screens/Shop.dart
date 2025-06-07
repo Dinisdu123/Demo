@@ -1,7 +1,7 @@
 import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/LeatherGoods.dart';
 import 'package:assingment/Screens/Accessories.dart';
-import 'package:assingment/Screens/all_products.dart'; // Added import for AllProducts
+import 'package:assingment/Screens/all_products.dart'; 
 import 'package:flutter/material.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 
@@ -32,8 +32,8 @@ class Search extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Image.network(
-                  'https://perfumesociety.org/wp-content/uploads/2024/09/handbag-sized-scents-2-1024x1024.jpg',
+                Image.asset(
+                  'assets/images/shop-all.jpg',
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
@@ -73,8 +73,8 @@ class Search extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Image.network(
-                  "https://assets.manufactum.de/p/208/208685/208685_01.jpg/wallet-square.jpg?profile=pdsmain_1500",
+                Image.asset(
+                  "assets/images/shop-leathergoods.jpg",
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
@@ -114,8 +114,8 @@ class Search extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Image.network(
-                  "https://nantucketperfumes.com/cdn/shop/files/orange_3.jpg?v=1730152398&width=1445",
+                Image.asset(
+                  "assets/images/shop-fragrance.jpg",
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
@@ -155,8 +155,8 @@ class Search extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Image.network(
-                  "https://shanijacobi.com/cdn/shop/files/shay-earing-set-724297_1800x1800.jpg?v=1715204193",
+                Image.asset(
+                  "assets/images/shop-accessories.jpg",
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,

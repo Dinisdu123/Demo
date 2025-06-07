@@ -62,18 +62,18 @@ class NewArrivals extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network(
-                "https://www.ninetynine.lk/wp-content/uploads/2024/01/2111701866-939155881-min.jpg",
+              Image.asset(
+                "assets/images/home-1.jpg",
                 height: 100,
                 width: 100,
               ),
-              Image.network(
-                "https://www.chanel.com/images/w_0.51,h_0.51,c_crop/q_auto:good,f_auto,fl_lossy,dpr_1.1/w_1920/coco-mademoiselle-eau-de-parfum-intense-spray-3-4fl-oz--packshot-default-116660-9539148283934.jpg",
+              Image.asset(
+                "assets/images/home-2.jpeg",
                 height: 100,
                 width: 100,
               ),
-              Image.network(
-                "https://cdn.cosmostore.org/cache/front/shop/products/568/1752562/350x350.jpg",
+              Image.asset(
+                "assets/images/home-3.jpg",
                 height: 100,
                 width: 100,
               )

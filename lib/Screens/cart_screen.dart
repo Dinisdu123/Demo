@@ -6,16 +6,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../providers/cart_provider.dart';
 import '../Screens/ProductDetails.dart';
+import '../Screens/checkout_screen.dart';
+import '../utils/shake_refresh_mixin.dart';
 import 'bottomNav.dart';
 
-class CartScreen extends ConsumerWidget {
+class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
 
+  @override
+  ConsumerState<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends ConsumerState<CartScreen>
+    with ShakeRefreshMixin<CartScreen> {
   // Helper function to calculate the total cart value
   double _calculateCartTotal(List items) {
     double total = 0.0;
     for (var item in items) {
-      // Remove any non-numeric characters (e.g., '$') and parse the price
       final priceStr = item.price.replaceAll(RegExp(r'[^\d.]'), '');
       final price = double.tryParse(priceStr) ?? 0.0;
       total += price * item.quantity;
@@ -24,7 +31,26 @@ class CartScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    // Start shake detection when the widget is initialized
+    startShakeDetection(ref, () async {
+      // Clear the cart when the phone is shaken
+      await ref.read(cartProvider.notifier).clearCart();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Cart cleared by shaking',
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final cartAsync = ref.watch(cartProvider);
     final theme = Theme.of(context);
 
@@ -42,7 +68,7 @@ class CartScreen extends ConsumerWidget {
           IconButton(
             icon: Icon(
               Icons.delete_sweep,
-              color: theme.colorScheme.error, // Theme-aware error color
+              color: theme.colorScheme.error,
             ),
             onPressed: () async {
               await ref.read(cartProvider.notifier).clearCart();
@@ -80,7 +106,7 @@ class CartScreen extends ConsumerWidget {
               return Card(
                 elevation: 2,
                 margin: EdgeInsets.symmetric(vertical: 8.h),
-                color: theme.colorScheme.surface, // Theme-aware card color
+                color: theme.colorScheme.surface,
                 child: ListTile(
                   leading: _buildCartImage(item.imagePath),
                   title: Text(
@@ -94,10 +120,9 @@ class CartScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.price
-                            .replaceAll('\$', 'LKR '), // Replace $ with LKR
+                        item.price.replaceAll('\$', 'LKR '),
                         style: GoogleFonts.roboto(
-                          color: theme.colorScheme.primary, // Theme-aware color
+                          color: theme.colorScheme.primary,
                         ),
                       ),
                       Row(
@@ -136,7 +161,7 @@ class CartScreen extends ConsumerWidget {
                   trailing: IconButton(
                     icon: Icon(
                       Icons.delete,
-                      color: theme.colorScheme.error, // Theme-aware error color
+                      color: theme.colorScheme.error,
                     ),
                     onPressed: () async {
                       await ref
@@ -184,14 +209,12 @@ class CartScreen extends ConsumerWidget {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Display cart total and checkout button
           cartAsync.when(
             data: (items) {
               final total = _calculateCartTotal(items);
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                color: theme
-                    .colorScheme.surfaceContainer, // Theme-aware background
+                color: theme.colorScheme.surfaceContainer,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -218,20 +241,13 @@ class CartScreen extends ConsumerWidget {
                           onPressed: items.isEmpty
                               ? null
                               : () {
-                                  // Placeholder checkout action
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Proceeding to checkout...',
-                                        style: TextStyle(
-                                          color: theme.colorScheme.onSurface,
-                                        ),
-                                      ),
-                                      backgroundColor:
-                                          theme.colorScheme.surface,
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CheckoutScreen(),
                                     ),
                                   );
-                                  // TODO: Add actual checkout logic (e.g., navigate to checkout screen)
                                 },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colorScheme.primary,
@@ -258,7 +274,6 @@ class CartScreen extends ConsumerWidget {
             loading: () => const SizedBox.shrink(),
             error: (error, stack) => const SizedBox.shrink(),
           ),
-          // Existing Footer
           const Footer(currentIndex: 2),
         ],
       ),

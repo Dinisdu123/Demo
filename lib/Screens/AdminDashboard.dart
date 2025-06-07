@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:assingment/Screens/Login.dart';
-import 'package:assingment/Screens/add_product.dart';
 import '../providers/auth_provider.dart';
+import '../Screens/ViewOrderScreen.dart';
 
 class AdminDashboard extends ConsumerWidget {
   const AdminDashboard({super.key});
@@ -12,6 +12,20 @@ class AdminDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
+
+    // Check if user is authenticated and has admin role
+    if (!authState.isAuthenticated ||
+        authState.user == null ||
+        authState.user!.role != 'admin') {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+          (route) => false,
+        );
+      });
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -21,6 +35,7 @@ class AdminDashboard extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
+              await ref.read(authProvider.notifier).logout();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Login()),
@@ -67,12 +82,10 @@ class AdminDashboard extends ConsumerWidget {
                     style: GoogleFonts.poppins(fontSize: 18.sp)),
                 trailing: const Icon(Icons.arrow_forward),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddProductScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const AddProductScreen()),
+                  // );
                 },
               ),
             ),
@@ -87,6 +100,25 @@ class AdminDashboard extends ConsumerWidget {
                     style: GoogleFonts.poppins(fontSize: 18.sp)),
                 trailing: const Icon(Icons.arrow_forward),
                 onTap: () {},
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r)),
+              child: ListTile(
+                leading: const Icon(Icons.list_alt),
+                title: Text("View Orders",
+                    style: GoogleFonts.poppins(fontSize: 18.sp)),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ViewOrdersScreen()),
+                  );
+                },
               ),
             ),
           ],
