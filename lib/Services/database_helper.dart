@@ -65,18 +65,13 @@ class DatabaseHelper {
   Future<void> insertCartItem(CartItem item) async {
     final db = await database;
     try {
-      final result = await db.insert(
+      await db.insert(
         'cart',
         item.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.ignore,
+        conflictAlgorithm: ConflictAlgorithm.fail, // Fail on conflict
       );
-      if (result == 0) {
-        print(
-            'Cart insertion ignored: Item already exists for user_id=${item.userId}, product_id=${item.productId}');
-      } else {
-        print(
-            'Inserted cart item: user_id=${item.userId}, product_id=${item.productId}');
-      }
+      print(
+          'Inserted cart item: user_id=${item.userId}, product_id=${item.productId}');
     } catch (e) {
       print('Error inserting cart item: $e');
       rethrow;

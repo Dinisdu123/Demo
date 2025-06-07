@@ -1,0 +1,18 @@
+[
+  {
+    "id": "3",
+    "name": "Oud Royal for Men",
+    "image_path": "assets/images/mensperfume.jpg",
+    "price": "LKR 32000.00",
+    "description": "An intense blend of oud and spice for the modern gentleman.",
+    "sub_category": "mens perfume"
+  },
+  {
+    "id": "4",
+    "name": "Rose Elixir for Women",
+    "image_path": "assets/images/ladiesfragrance.jpeg",
+    "price": "LKR 29500.00",
+    "description": "A luxurious floral perfume with rose and vanilla notes.",
+    "sub_category": "ladies perfume"
+  }
+]

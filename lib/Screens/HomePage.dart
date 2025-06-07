@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:assingment/Screens/AboutUs.dart';
-import 'package:assingment/Screens/Fragrances.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 
 class MyHomePage extends StatelessWidget {

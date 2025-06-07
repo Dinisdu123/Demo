@@ -76,6 +76,10 @@ flutter:
     - assets/data/accessories.json
     - assets/images/letterbag.jpeg
     - assets/images/leatherminibag.jpg
+    - assets/images/ladiesfragrance.jpeg
+    - assets/images/mensperfume.jpg
+    - assets/images/necklace.jpeg
+    - assets/images/shoe.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

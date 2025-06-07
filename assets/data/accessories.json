@@ -1,0 +1,18 @@
+[
+  {
+    "id": "5",
+    "name": "Gold-Plated Chain Necklace",
+    "image_path": "assets/images/necklace.jpeg",
+    "price": "LKR 18000.00",
+    "description": "Elegant gold-plated chain necklace for timeless style.",
+    "sub_category": "jewellery"
+  },
+  {
+    "id": "6",
+    "name": "Leather Loafers",
+    "image_path": "assets/images/shoe.jpg",
+    "price": "LKR 22000.00",
+    "description": "Premium handcrafted leather loafers for everyday luxury.",
+    "sub_category": "footwear"
+  }
+]

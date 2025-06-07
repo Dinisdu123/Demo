@@ -11,24 +11,49 @@ import 'bottomNav.dart';
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});
 
+  // Helper function to calculate the total cart value
+  double _calculateCartTotal(List items) {
+    double total = 0.0;
+    for (var item in items) {
+      // Remove any non-numeric characters (e.g., '$') and parse the price
+      final priceStr = item.price.replaceAll(RegExp(r'[^\d.]'), '');
+      final price = double.tryParse(priceStr) ?? 0.0;
+      total += price * item.quantity;
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartAsync = ref.watch(cartProvider);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'My Cart',
-          style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
+          style: GoogleFonts.roboto(
+            fontWeight: FontWeight.bold,
+            color: theme.colorScheme.onSurface,
+          ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_sweep),
+            icon: Icon(
+              Icons.delete_sweep,
+              color: theme.colorScheme.error, // Theme-aware error color
+            ),
             onPressed: () async {
               await ref.read(cartProvider.notifier).clearCart();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Cart cleared')),
+                SnackBar(
+                  content: Text(
+                    'Cart cleared',
+                    style: TextStyle(color: theme.colorScheme.onSurface),
+                  ),
+                  backgroundColor: theme.colorScheme.surface,
+                ),
               );
             },
           ),
@@ -37,7 +62,15 @@ class CartScreen extends ConsumerWidget {
       body: cartAsync.when(
         data: (items) {
           if (items.isEmpty) {
-            return const Center(child: Text('Your cart is empty'));
+            return Center(
+              child: Text(
+                'Your cart is empty',
+                style: GoogleFonts.roboto(
+                  fontSize: 16.sp,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+            );
           }
           return ListView.builder(
             padding: EdgeInsets.all(16.w),
@@ -47,23 +80,31 @@ class CartScreen extends ConsumerWidget {
               return Card(
                 elevation: 2,
                 margin: EdgeInsets.symmetric(vertical: 8.h),
+                color: theme.colorScheme.surface, // Theme-aware card color
                 child: ListTile(
                   leading: _buildCartImage(item.imagePath),
                   title: Text(
                     item.title,
-                    style: GoogleFonts.roboto(fontSize: 16.sp),
+                    style: GoogleFonts.roboto(
+                      fontSize: 16.sp,
+                      color: theme.colorScheme.onSurface,
+                    ),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.price,
-                        style: GoogleFonts.roboto(color: Colors.green),
+                        item.price
+                            .replaceAll('\$', 'LKR '), // Replace $ with LKR
+                        style: GoogleFonts.roboto(
+                          color: theme.colorScheme.primary, // Theme-aware color
+                        ),
                       ),
                       Row(
                         children: [
                           IconButton(
                             icon: const Icon(Icons.remove),
+                            color: theme.colorScheme.onSurface,
                             onPressed: () async {
                               await ref
                                   .read(cartProvider.notifier)
@@ -73,10 +114,14 @@ class CartScreen extends ConsumerWidget {
                           ),
                           Text(
                             item.quantity.toString(),
-                            style: GoogleFonts.roboto(fontSize: 16.sp),
+                            style: GoogleFonts.roboto(
+                              fontSize: 16.sp,
+                              color: theme.colorScheme.onSurface,
+                            ),
                           ),
                           IconButton(
                             icon: const Icon(Icons.add),
+                            color: theme.colorScheme.onSurface,
                             onPressed: () async {
                               await ref
                                   .read(cartProvider.notifier)
@@ -89,13 +134,23 @@ class CartScreen extends ConsumerWidget {
                     ],
                   ),
                   trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
+                    icon: Icon(
+                      Icons.delete,
+                      color: theme.colorScheme.error, // Theme-aware error color
+                    ),
                     onPressed: () async {
                       await ref
                           .read(cartProvider.notifier)
                           .removeFromCart(item.productId);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Removed from Cart')),
+                        SnackBar(
+                          content: Text(
+                            'Removed from Cart',
+                            style:
+                                TextStyle(color: theme.colorScheme.onSurface),
+                          ),
+                          backgroundColor: theme.colorScheme.surface,
+                        ),
                       );
                     },
                   ),
@@ -119,9 +174,94 @@ class CartScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error')),
+        error: (error, stack) => Center(
+          child: Text(
+            'Error: $error',
+            style: TextStyle(color: theme.colorScheme.onSurface),
+          ),
+        ),
       ),
-      bottomNavigationBar: const Footer(currentIndex: 2), // Updated to 2
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Display cart total and checkout button
+          cartAsync.when(
+            data: (items) {
+              final total = _calculateCartTotal(items);
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                color: theme
+                    .colorScheme.surfaceContainer, // Theme-aware background
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'LKR ${total.toStringAsFixed(2)}',
+                          style: GoogleFonts.roboto(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                        SizedBox(width: 16.w),
+                        ElevatedButton(
+                          onPressed: items.isEmpty
+                              ? null
+                              : () {
+                                  // Placeholder checkout action
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Proceeding to checkout...',
+                                        style: TextStyle(
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                                      ),
+                                      backgroundColor:
+                                          theme.colorScheme.surface,
+                                    ),
+                                  );
+                                  // TODO: Add actual checkout logic (e.g., navigate to checkout screen)
+                                },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colorScheme.primary,
+                            foregroundColor: theme.colorScheme.onPrimary,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 8.h,
+                            ),
+                          ),
+                          child: Text(
+                            'Checkout',
+                            style: GoogleFonts.roboto(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+            loading: () => const SizedBox.shrink(),
+            error: (error, stack) => const SizedBox.shrink(),
+          ),
+          // Existing Footer
+          const Footer(currentIndex: 2),
+        ],
+      ),
     );
   }
 
