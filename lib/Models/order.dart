@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Order {
-  final int? id; // Auto-incremented by SQLite
+  final int? id; 
   final String userId;
   final String name;
   final String phone;
@@ -9,8 +9,8 @@ class Order {
   final List<OrderItem> items;
   final double total;
   final DateTime timestamp;
-  final String paymentMethod; // New field
-  final String? receiptImagePath; // New field, nullable
+  final String paymentMethod; 
+  final String? receiptImagePath; 
 
   Order({
     this.id,

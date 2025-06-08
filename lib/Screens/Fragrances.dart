@@ -36,7 +36,6 @@ class Fragrances extends ConsumerWidget {
             return const Center(child: Text('No fragrances available'));
           }
 
-          // Group products by category (mens, ladies)
           final mensFragrances =
               products.where((p) => p.subCategory == 'mens').toList();
           final ladiesFragrances =

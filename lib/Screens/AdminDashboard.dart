@@ -13,7 +13,6 @@ class AdminDashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
 
-    // Check if user is authenticated and has admin role
     if (!authState.isAuthenticated ||
         authState.user == null ||
         authState.user!.role != 'admin') {

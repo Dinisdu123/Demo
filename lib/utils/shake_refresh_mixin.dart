@@ -10,7 +10,7 @@ mixin ShakeRefreshMixin<T extends ConsumerStatefulWidget> on ConsumerState<T> {
       onShake: () {
         onRefresh();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Products refreshed')),
+          const SnackBar(content: Text('Cleared')),
         );
       },
       shakeThreshold: 15.0,

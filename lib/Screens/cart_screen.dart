@@ -19,7 +19,6 @@ class CartScreen extends ConsumerStatefulWidget {
 
 class _CartScreenState extends ConsumerState<CartScreen>
     with ShakeRefreshMixin<CartScreen> {
-  // Helper function to calculate the total cart value
   double _calculateCartTotal(List items) {
     double total = 0.0;
     for (var item in items) {
@@ -33,7 +32,6 @@ class _CartScreenState extends ConsumerState<CartScreen>
   @override
   void initState() {
     super.initState();
-    // Start shake detection when the widget is initialized
     startShakeDetection(ref, () async {
       // Clear the cart when the phone is shaken
       await ref.read(cartProvider.notifier).clearCart();

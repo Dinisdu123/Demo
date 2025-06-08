@@ -30,7 +30,6 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   void initState() {
     super.initState();
     _fetchLocation();
-    // Pre-fill name from authProvider
     final authState = ref.read(authProvider);
     if (authState.isAuthenticated && authState.user != null) {
       nameController.text = authState.user!.name;

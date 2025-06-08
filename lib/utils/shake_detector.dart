@@ -12,18 +12,16 @@ class ShakeDetector {
 
   ShakeDetector({
     required this.onShake,
-    this.shakeThreshold = 15.0, // Adjust threshold for sensitivity
-    this.shakeSlopTimeMs = 500, // Minimum time between shakes
+    this.shakeThreshold = 15.0, 
+    this.shakeSlopTimeMs = 500, 
   });
 
   void startListening() {
     _accelerometerSubscription =
         accelerometerEvents.listen((AccelerometerEvent event) {
-      // Calculate magnitude of acceleration
       final magnitude =
           sqrt(event.x * event.x + event.y * event.y + event.z * event.z);
 
-      // Check if magnitude exceeds threshold
       if (magnitude > shakeThreshold) {
         final now = DateTime.now();
         if (_lastShakeTime == null ||

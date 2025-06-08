@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:assingment/Screens/AboutUs.dart';
+
 import 'package:assingment/Screens/Login.dart';
 import 'package:assingment/Screens/bottomNav.dart';
 import 'package:assingment/Screens/HomePage.dart';
@@ -183,10 +183,10 @@ class _AccountCateg extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Aboutus()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => ),
+                  // );
                 },
                 icon: const Icon(Icons.arrow_forward_outlined),
                 color: Theme.of(context).iconTheme.color,
