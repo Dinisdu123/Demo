@@ -49,9 +49,16 @@ class _LoginState extends ConsumerState<Login> {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           child: Column(
             children: [
-              Image.asset('assets/images/logo.png', height: 100.h, fit: BoxFit.contain),
+              Image.asset('assets/images/luxury_software.jpg', height: 100.h, fit: BoxFit.contain),
               SizedBox(height: 20.h),
-              Text('Welcome to Aurora Luxe', style: GoogleFonts.poppins(fontSize: 24.sp, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
+              Text(
+                'Welcome to Aurora Luxe',
+                style: GoogleFonts.poppins(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
               SizedBox(height: 30.h),
               Form(
                 key: _formKey,
@@ -68,7 +75,11 @@ class _LoginState extends ConsumerState<Login> {
                         filled: true,
                         fillColor: Theme.of(context).brightness == Brightness.light ? Colors.grey[100] : Colors.grey[800],
                       ),
-                      validator: (value) => value == null || value.isEmpty ? 'Please enter your email' : (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value) ? 'Please enter a valid email' : null),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter your email'
+                          : (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)
+                              ? 'Please enter a valid email'
+                              : null),
                     ),
                     SizedBox(height: 20.h),
                     TextFormField(
@@ -86,11 +97,17 @@ class _LoginState extends ConsumerState<Login> {
                         filled: true,
                         fillColor: Theme.of(context).brightness == Brightness.light ? Colors.grey[100] : Colors.grey[800],
                       ),
-                      validator: (value) => value == null || value.isEmpty ? 'Please enter your password' : (value.length < 8 ? 'Password must be at least 8 characters' : null),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter your password'
+                          : (value.length < 8 ? 'Password must be at least 8 characters' : null),
                     ),
                     SizedBox(height: 10.h),
                     if (authState.error != null)
-                      Text(authState.error!, style: GoogleFonts.poppins(color: Colors.red, fontSize: 14.sp), textAlign: TextAlign.center),
+                      Text(
+                        authState.error!,
+                        style: GoogleFonts.poppins(color: Colors.red, fontSize: 14.sp),
+                        textAlign: TextAlign.center,
+                      ),
                     SizedBox(height: 20.h),
                     ElevatedButton(
                       onPressed: () async {
@@ -111,12 +128,21 @@ class _LoginState extends ConsumerState<Login> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
-                      child: Text('Login', style: GoogleFonts.poppins(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white)),
+                      child: Text(
+                        'Login',
+                        style: GoogleFonts.poppins(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     SizedBox(height: 10.h),
                     TextButton(
                       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Register())),
-                      child: Text("Don't have an account? Register Now", style: GoogleFonts.poppins(fontSize: 14.sp, color: Theme.of(context).primaryColor)),
+                      child: Text(
+                        "Don't have an account? Register",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14.sp,
+                          color: Theme.of(context).brightness == Brightness.light ? Colors.blue.shade700 : Colors.blue.shade300,
+                        ),
+                      ),
                     ),
                   ],
                 ),

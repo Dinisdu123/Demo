@@ -54,15 +54,10 @@ class _RegisterState extends ConsumerState<Register> {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           child: Column(
             children: [
-              Image.asset('assets/images/logo.png',
+              Image.asset('assets/images/luxury_software.jpg',
                   height: 100.h, fit: BoxFit.contain),
               SizedBox(height: 20.h),
-              Text('Create Your Account',
-                  style: GoogleFonts.poppins(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor)),
-              SizedBox(height: 30.h),
+            
               Form(
                 key: _formKey,
                 child: Column(

@@ -38,7 +38,7 @@ class MainImg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      child: Image.asset('lib/Images/home page cover.jpg', fit: BoxFit.cover),
+      child: Image.asset('assets/images/homepage.jpeg', fit: BoxFit.cover),
     );
   }
 }
